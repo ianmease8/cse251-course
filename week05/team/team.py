@@ -4,79 +4,72 @@ Lesson Week: 05
 File: team.py
 Author: Brother Comeau
 
-Purpose: Check for prime values
+Purpose: Team Activity
 
 Instructions:
 
-- You can't use thread pools or process pools
-- Follow the graph in I-Learn 
-- Start with PRIME_PROCESS_COUNT = 1, then once it works, increase it
+- See in I-Learn
 
 """
-import time
-import threading
-import multiprocessing as mp
-import random
 
-#Include cse 251 common Python files
+import threading
+import queue
+import requests
+import json
+
+# Include cse 251 common Python files
 from cse251 import *
 
-PRIME_PROCESS_COUNT = 1
+RETRIEVE_THREADS = 4        # Number of retrieve_threads
+NO_MORE_VALUES = 'No more'  # Special value to indicate no more items in the queue
 
-def is_prime(n: int) -> bool:
-    """Primality test using 6k+-1 optimization.
-    From: https://en.wikipedia.org/wiki/Primality_test
-    """
-    if n <= 3:
-        return n > 1
-    if n % 2 == 0 or n % 3 == 0:
-        return False
-    i = 5
-    while i ** 2 <= n:
-        if n % i == 0 or n % (i + 2) == 0:
-            return False
-        i += 6
-    return True
+def retrieve_thread():  # TODO add arguments
+    """ Process values from the data_queue """
 
-# TODO create read_thread function
+    while True:
+        # TODO check to see if anything is in the queue
 
-# TODO create prime_process function
+        # TODO process the value retrieved from the queue
 
-def create_data_txt(filename):
-    with open(filename, 'w') as f:
-        for _ in range(1000):
-            f.write(str(random.randint(10000000000, 100000000000000)) + '\n')
+        # TODO make Internet call to get characters name and log it
+        pass
+
+
+
+def file_reader(): # TODO add arguments
+    """ This thread reading the data file and places the values in the data_queue """
+
+    # TODO Open the data file "urls.txt" and place items into a queue
+
+    log.write('finished reading file')
+
+    # TODO signal the retrieve threads one more time that there are "no more values"
+
 
 
 def main():
     """ Main function """
 
-    filename = 'data.txt'
-
-    # Once the data file is created, you can comment out this line
-    create_data_txt(filename)
-
     log = Log(show_terminal=True)
+
+    # TODO create queue
+    # TODO create semaphore (if needed)
+
+    # TODO create the threads. 1 filereader() and RETRIEVE_THREADS retrieve_thread()s
+    # Pass any arguments to these thread need to do their job
+
     log.start_timer()
 
-    # TODO Create shared data structures
+    # TODO Get them going - start the retrieve_threads first, then file_reader
 
-    # TODO create reading thread
+    # TODO Wait for them to finish - The order doesn't matter
 
-    # TODO create prime processes
-
-    # TODO Start them all
-
-    # TODO wait for them to complete
-
-    log.stop_timer(f'All primes have been found using {PRIME_PROCESS_COUNT} processes')
-
-    # display the list of primes
-    print(f'There are {len(primes)} found:')
-    for prime in primes:
-        print(prime)
+    log.stop_timer('Time to process all URLS')
 
 
 if __name__ == '__main__':
     main()
+
+
+
 
