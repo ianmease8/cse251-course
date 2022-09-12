@@ -1,6 +1,6 @@
 """
 Course: CSE 251
-Lesson Week: 05
+Lesson Week: 06
 File: assignment.py
 Author: <Your name>
 

@@ -28,9 +28,9 @@ You will also be testing your program using a python Unit test. Testing your cod
 
 ## CSE 251 Logger
 
-This assignment uses the Log class found in `cse251.py`. Refer to the [log class documentation](../overview/cse251_code.md)
+This assignment uses the Log class found in `cse251.py`. Refer to the [log class documentation](../overview/cse251_code.md). If you have properly installed the packages [CSE251 Installer](../overview/cse251_code.md), then the Log class can be resolved in your code.
 
-The assignment program will creating the following logging information.  Here is the output from the assignment program before adding threads.
+The assignment program will creating the following logging information.  Here is an example of what your log file should look like.
 
 ```text
 14:15:07| number=10
