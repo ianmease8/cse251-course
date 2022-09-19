@@ -1,0 +1,9 @@
+19:10:06| number=10
+19:10:06| Return values from create_threads:
+	actual_from_class=45, actual_from_thread_mod=45
+19:10:06| number=13
+19:10:06| Return values from create_threads:
+	actual_from_class=78, actual_from_thread_mod=78
+19:10:06| number=17
+19:10:06| Return values from create_threads:
+	actual_from_class=136, actual_from_thread_mod=136
