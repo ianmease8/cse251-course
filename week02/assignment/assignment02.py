@@ -2,7 +2,7 @@
 Course: CSE 251 
 Lesson Week: 01
 File: assignment.py 
-Author: <Add name here>
+Author: Ian Mease
 
 Purpose: Drawing with Python Turtle
 
@@ -31,6 +31,7 @@ from cse251turtle import *
 # Include CSE 251 common Python files. 
 from cse251 import *
 
+Lock = threading.Lock()
 
 def draw_square(tur, x, y, side, color='black'):
     """Draw Square"""
@@ -92,34 +93,39 @@ def draw_coord_system(tur, x, y, size=300, color='black'):
         tur.backward(size)
         tur.left(90)
 
-def draw_squares(tur):
+def draw_squares(tur, Lock):
     """Draw a group of squares"""
     for x in range(-300, 350, 200):
         for y in range(-300, 350, 200):
+            Lock.acquire()
             draw_square(tur, x - 50, y + 50, 100)
+            Lock.release()
 
-
-def draw_circles(tur):
+def draw_circles(tur, Lock):
     """Draw a group of circles"""
     for x in range(-300, 350, 200):
         for y in range(-300, 350, 200):
+            Lock.acquire()
             draw_circle(tur, x, y-2, 50)
+            Lock.release()
 
 
-def draw_triangles(tur):
+def draw_triangles(tur, Lock):
     """Draw a group of triangles"""
     for x in range(-300, 350, 200):
         for y in range(-300, 350, 200):
+            Lock.acquire()
             draw_triangle(tur, x-30, y-30+10, 60)
+            Lock.release()
 
 
-def draw_rectangles(tur):
+def draw_rectangles(tur, Lock):
     """Draw a group of Rectangles"""
     for x in range(-300, 350, 200):
         for y in range(-300, 350, 200):
+            Lock.acquire()
             draw_rectangle(tur, x-10, y+5, 20, 15)
-
-
+            Lock.release()
 def run_no_threads(tur, log, main_turtle):
     """Draw different shapes without using threads"""
 
@@ -150,7 +156,7 @@ def run_no_threads(tur, log, main_turtle):
 
 def run_with_threads(tur, log, main_turtle):
     """Draw different shapes using threads"""
-
+    
     # Draw Coors system
     tur.pensize(0.5)
     draw_coord_system(tur, 0, 0, size=375)
@@ -163,10 +169,25 @@ def run_with_threads(tur, log, main_turtle):
     # You need to use 4 threads where each thread concurrently drawing one type of shape.
     # You are free to change any functions in this code except main()
 
+    square =threading.Thread(target=draw_squares, args = (tur, Lock))
+    circle = threading.Thread(target= draw_circles, args=(tur, Lock))
+    triangle = threading.Thread(target = draw_triangles, args=(tur, Lock))
+    rectangle = threading.Thread(target = draw_rectangles, args= (tur, Lock))
+
+    square.start()
+    circle.start()
+    triangle.start()
+    rectangle.start()
+    square.join()
+    circle.join()
+    triangle.join()
+    rectangle.join()
+
+
     log.step_timer('All drawing commands have been created')
-
+    
     log.write(f'Number of Drawing Commands: {tur.get_command_count()}')
-
+    
     # Play the drawing commands that were created
     tur.play_commands(main_turtle)
     log.stop_timer('Total drawing time')
@@ -192,7 +213,7 @@ def main():
     turtle251 = CSE251Turtle()
 
     # Test 1 - Drawing with no threads
-    run_no_threads(turtle251, log, main_turtle)
+    #run_no_threads(turtle251, log, main_turtle)
     
     main_turtle.clear()
 
