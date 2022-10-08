@@ -13,7 +13,7 @@ def main():
         return 
 
     if platform.system() == 'Windows':
-        command = r'ffmpeg -y -i processed/image%3d.png final.mp4'
+        command = r'assignment\ffmpeg -y -i processed/image%3d.png final.mp4'
     else:
         command = r'./ffmpeg -y -i processed/image%3d.png final.mp4'
 

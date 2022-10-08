@@ -13,7 +13,7 @@ def create_dir(folder):
 def create_images(video_file, folder):
     # limit the number of frames to 300
     if platform.system() == 'Windows':
-        command = rf'ffmpeg -i {video_file} -vframes 300 {folder}/image%3d.png'
+        command = rf'assignment\ffmpeg.exe -i {video_file} -vframes 300 {folder}/image%3d.png'
     else:
         command = rf'./ffmpeg -i {video_file} -vframes 300 {folder}/image%3d.png'
     os.system(command)
@@ -25,7 +25,7 @@ def main():
     create_dir('processed')
 
     # Create the image files
-    create_images('elephants.mp4', 'elephant')
-    create_images('green.mp4', 'green')
+    create_images('assignment\elephants.mp4', 'elephant')
+    create_images('assignment\green.mp4', 'green')
 
 main()
